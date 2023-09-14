@@ -14,3 +14,7 @@ Solved Problems:
 3. [Problem6|Sum Square Difference](src/problem-006/problem-006.py)
    - 502086th 
    - [Squares of first N natural numbers = Sum of cubes of first N natural numbers](src/problem-006/problem-006.md)
+  
+4. [Problem5|Smallest Multiple](src/problem-005/problem-005.py)
+   - 499069th 
+   - [LCM when applied to a collection of numbers is commutative, associate & idempotent](src/problem-005/problem-005.md)
