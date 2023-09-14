@@ -10,3 +10,7 @@ Solved Problems:
 2. [Problem2|Even Fibonacci Numbers](src/problem-002/problem-002.py) 
    - You are the 777097th person to have solved this problem.
    - [Tweaked problem & conclusion here](src/problem-002/problem-002.md)
+
+3. [Problem6|Sum Square Difference](src/problem-006/problem-006.py)
+   - 502086th 
+   - [Squares of first N natural numbers = Sum of cubes of first N natural numbers](src/problem-006/problem-006.md)
