@@ -21,7 +21,10 @@ def findNthPrime(regular=False):
     countOfPrimes = 0
     while countOfPrimes < N:
         n = factor * N
-        sieve(n)
+        if regular:
+            sieve_regular(n)
+        else:
+            sieve(n)
         countOfPrimes = len([each for each in primes if each])
         factor += 1
 
