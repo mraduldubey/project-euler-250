@@ -85,7 +85,7 @@ ans = findNthPrime(regular=True)
 t1 = time.perf_counter(), time.process_time()
 
 print(ans)
-print("Optimized iterative sieve of eratothenes solution")
+print("Iterative normal sieve of eratothenes solution")
 print(f"Real time: {t1[0] - t0[0]:.5f} secs")
 print(f"CPU time: {t1[1] - t0[1]:.5f} secs")
 print("------------")
