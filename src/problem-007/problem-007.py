@@ -26,6 +26,7 @@ sievedUpto = 2
 
 def findNthPrime():
     global N
+    global primes
     factor = 2
     countOfPrimes = 0
     while countOfPrimes < N + 1:
@@ -34,14 +35,16 @@ def findNthPrime():
         countOfPrimes = len([each for each in primes if each])
         factor += 1
     
-    count = 1
+    primes[0] = primes[1] = False
+    count = 0
     for i, each in enumerate(primes):
         if each:
             if not is_prime(i):
                 print("GOT YAAAA", i, count)
-                #raise Exception()
+                raise Exception()
             count += 1
-        if count == N+1:
+        print(count, i)
+        if count == N + 1:
             print("count", count)
             print("diff", 104743 - i)
             return i
@@ -49,11 +52,21 @@ def findNthPrime():
 
 def findClosestMultipleToSievedUpto(p):
     global sievedUpto
+    if sievedUpto == 2:
+        if p == 2:
+            closest = 4
+        else:
+            closest = ((sievedUpto // p)+1)*p + p
+    else:
+        closest = ((sievedUpto // p)*p) + p
+    if p == 2:
+        print("p, sievedupto ===> closest", p, sievedUpto, closest)
+    return  closest
     if p == 2: # the only even prime
         if sievedUpto == 2:
             return 4
         else:
-            return ((sievedUpto // p) + 1)*p
+            return ((sievedUpto // p)*p+1) + p
     else:
         return ((sievedUpto // p) + 1)*p + p
     
@@ -74,7 +87,7 @@ def sieve(n):
             print("closest to ", sievedUpto, p, "->", closestMulFromSievedUpto)
             for i in range(closestMulFromSievedUpto, n+1, p):
                 primes[i] = False
-                if (i == 2264):
+                if (i == 1):
                     print("AHHHHHHHHHHHHHHHH", p, i)
                     #raise Exception()
             print("P==>", p)
