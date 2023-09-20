@@ -28,3 +28,4 @@ Solved Problems:
 7. [Problem5|10001st prime](src/problem-007/problem-007.py)
    - 430326th
    - [Sieve of eratothenes + Prime Number Theoram: `num of primes <n = ~n/logn`](src/problem-007/problem-007.md)
+   - [Alternate Solution: Every prime > 3 can be represented in the form of 6k+-1 i.e. check for only these numbers till sqrt(n) to check for primality.](src/problem-007/problem-007.py)
