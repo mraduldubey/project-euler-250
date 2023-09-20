@@ -25,3 +25,6 @@ Solved Problems:
 6. [Problem4|Largest Palindrome Product](src/problem-006/problem-006.py)
    - 495977th 
    - [All even length palindrome numbers are multiples of 11](src/problem-004/problem-004.md)
+7. [Problem5|10001st prime](src/problem-007/problem-007.py)
+   - 430326th
+   - [Sieve of eratothenes + Prime Number Theoram: `num of primes <n = ~n/logn`](src/problem-007/problem-007.md)
