@@ -8,92 +8,81 @@ So, we try a iterative model. We start with sieving till a rough estimate:
 n = 10001 * logn
 Lets say, n = 1001 * 2 and keep doubling every time we run short. 
 """
+import time
 
-
-import math
- 
-def is_prime(n):
-    if n <= 1:
-        return False
-    for i in range(2, int(math.sqrt(n)) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-N = 10000
+N = 10001
 primes = [False, False, True]
 sievedUpto = 2 
 
-def findNthPrime():
+def findNthPrime(regular=False):
     global N
     global primes
     factor = 2
     countOfPrimes = 0
-    while countOfPrimes < N + 1:
+    while countOfPrimes < N:
         n = factor * N
         sieve(n)
         countOfPrimes = len([each for each in primes if each])
         factor += 1
-    
-    primes[0] = primes[1] = False
+
     count = 0
     for i, each in enumerate(primes):
         if each:
-            if not is_prime(i):
-                print("GOT YAAAA", i, count)
-                raise Exception()
             count += 1
-        print(count, i)
-        if count == N + 1:
-            print("count", count)
-            print("diff", 104743 - i)
+        if count == N:
             return i
-            break
 
 def findClosestMultipleToSievedUpto(p):
     global sievedUpto
-    if sievedUpto == 2:
-        if p == 2:
-            closest = 4
-        else:
-            closest = ((sievedUpto // p)+1)*p + p
-    else:
-        closest = ((sievedUpto // p)*p) + p
-    if p == 2:
-        print("p, sievedupto ===> closest", p, sievedUpto, closest)
-    return  closest
-    if p == 2: # the only even prime
-        if sievedUpto == 2:
-            return 4
-        else:
-            return ((sievedUpto // p)*p+1) + p
-    else:
-        return ((sievedUpto // p) + 1)*p + p
+    ratio = sievedUpto//p
+    if ratio <= 1:
+        return p+p
+    return (sievedUpto//p)*p + p
     
 def sieve(n):
     global primes
     global sievedUpto
-
     primes += [True] * (n - len(primes) + 1)
-    print("len" ,len(primes))
     p = 2
     while p * p <= n:
-        #print("is it prime ?", p, primes[p], p*p, n)
         if primes[p]:
-            #print(p)
-            # we dont need to start from p*p because [p*p, prev n] has already been sieved. 
-            # So, start from the closest multiple of p to the number that we previously sieved upto
+            # we dont need to start from p*p because [p*p, prev n] has already been sieved
             closestMulFromSievedUpto = findClosestMultipleToSievedUpto(p)
-            print("closest to ", sievedUpto, p, "->", closestMulFromSievedUpto)
             for i in range(closestMulFromSievedUpto, n+1, p):
                 primes[i] = False
-                if (i == 1):
-                    print("AHHHHHHHHHHHHHHHH", p, i)
-                    #raise Exception()
-            print("P==>", p)
         p += 1
     sievedUpto = n
-    print("sievedUpto", sievedUpto)
 
+t0 = time.perf_counter(), time.process_time()
 ans = findNthPrime()
+t1 = time.perf_counter(), time.process_time()
+
 print(ans)
+print("Optimized iterative sieve of eratothenes solution")
+print(f"Real time: {t1[0] - t0[0]:.5f} secs")
+print(f"CPU time: {t1[1] - t0[1]:.5f} secs")
+print("------------")
+
+
+# Comparison against normal sieve.
+def sieve_regular(n):
+    global primes
+    global sievedUpto
+    primes += [True] * (n - len(primes) + 1)
+    p = 2
+    while p * p <= n:
+        if primes[p]:
+            for i in range(p*p, n+1, p):
+                primes[i] = False
+        p += 1
+    sievedUpto = n
+
+t0 = time.perf_counter(), time.process_time()
+ans = findNthPrime(regular=True)
+t1 = time.perf_counter(), time.process_time()
+
+print(ans)
+print("Optimized iterative sieve of eratothenes solution")
+print(f"Real time: {t1[0] - t0[0]:.5f} secs")
+print(f"CPU time: {t1[1] - t0[1]:.5f} secs")
+print("------------")
