@@ -4,11 +4,11 @@ Question: What is the 10001st prime number ?
 """ 
 Solution Idea: Sieve. But the problem is we dont have a upper limit of number - we just have count of prime.
 Idea2: Prime Number Theoram states that there are rough n/logn number of primes less than n but the distance b/w primes get randomly larger.
+Since logn will be > 1, we can only hope to find it iteratively, lets start with 2,3,4,5... and so on till 10001st prime is found
 So, we try a iterative model. We start with sieving till a rough estimate:
-n = 10001 * logn
-Lets say, n = 1001 * 2 and keep doubling every time we run short. 
 """
 import time
+import math
 
 N = 10001
 primes = [False, False, True]
@@ -61,7 +61,7 @@ ans = findNthPrime()
 t1 = time.perf_counter(), time.process_time()
 
 print(ans)
-print("Optimized iterative sieve of eratothenes solution")
+print("Iterative \"supposedly optimized\" sieve of eratothenes solution")
 print(f"Real time: {t1[0] - t0[0]:.5f} secs")
 print(f"CPU time: {t1[1] - t0[1]:.5f} secs")
 print("------------")
@@ -86,6 +86,55 @@ t1 = time.perf_counter(), time.process_time()
 
 print(ans)
 print("Iterative normal sieve of eratothenes solution")
+print(f"Real time: {t1[0] - t0[0]:.5f} secs")
+print(f"CPU time: {t1[1] - t0[1]:.5f} secs")
+print("------------")
+
+#Idea: Observations about primes
+"""
+1 is not a prime.
+All primes except 2 are odd.
+All primes greater than 3 can be written in the form 6k+/-1 i.e. (start with 5, keep adding 6, that number and number + 2 give us all possible nums in seq)
+Any number n can have only one primefactor greater than sqrt(n) that implies the other factor must be <= sqrt(n) .
+"""
+
+def isPrime(n):
+    if n == 1:
+         return False
+    elif n < 4:
+        return True
+    elif not n%2:
+        return False
+    elif n < 9:
+        return True
+    elif not n%3:
+        return False
+    else:
+        # check only till sqrt(n)
+        nRoot = math.sqrt(n)
+        # start with 5 and check for every 6k+-1 number (even though some may not be prime themselves)
+        # seq: 5 -> 11 (check for 11 & 13) -> 17 (check for 17 and 19) and so on...
+        f = 5 # 6k +- 1
+        while f <= nRoot:
+            if not n%f:
+                return False
+            if not n%(f+2):
+                return False
+            f += 6
+    return True
+
+t0 = time.perf_counter(), time.process_time()
+count = 1
+candidate = 1
+while True:
+    candidate += 2 # no prime can be even
+    if isPrime(candidate):
+        count += 1
+        if count >= N:
+            break
+t1 = time.perf_counter(), time.process_time()
+print(ans)
+print("Prime factorization based on 6k+-1 idea")
 print(f"Real time: {t1[0] - t0[0]:.5f} secs")
 print(f"CPU time: {t1[1] - t0[1]:.5f} secs")
 print("------------")
