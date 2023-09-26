@@ -29,3 +29,6 @@ Solved Problems:
    - 430326th
    - [Sieve of eratothenes + Prime Number Theoram: `num of primes <n = ~n/logn`](src/problem-007/problem-007.md)
    - [Alternate Solution: Every prime > 3 can be represented in the form of 6k+-1 i.e. check for only these numbers till sqrt(n) to check for primality.](src/problem-007/problem-007.py)
+8. [Problem9|Special Pythagorean triplet](src/problem-009/problem-009.py)
+   - 366037th
+   - [Primitive Pythagoream Triplets properties (a=m^2-n^2, b = 2mn, c = m^2+n^2 with a < b < c) can used to optimise the solution](src/problem-009/problem-009.md)
